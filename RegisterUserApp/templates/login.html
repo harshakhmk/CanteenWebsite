@@ -1,0 +1,33 @@
+Login Here
+
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  {% endif %}
+
+
+<form  method="POST">
+    {%  csrf_token  %}
+    {{form.as_p}}
+    <input type="Submit" name="submit" value="Submit">
+    
+    </form>
+
+    <script>
+      var closebtns = document.getElementsByClassName("close");
+      var i;
+      
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function() {
+          this.parentElement.style.display = 'none';
+        });
+      }
+      </script>
+         

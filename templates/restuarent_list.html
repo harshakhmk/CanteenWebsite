@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block buttons %}
+
+
+
+<a href="{% url 'Create_Restaurent' %}"> <button >Create Restaurent</button></a> 
+
+
+
+{%   endblock buttons    %}
+
+{% block content %}
+
+
+  {%  for restaurent in list      %}
+	<div class="row">
+		<a href="{{ restaurent.get_absolute_url}}">
+		<div class="col-lg-4 ">
+			<img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+			<div class="box-element product">
+				<h6><strong>{{restaurent.name}}</strong></h6>
+				<hr>
+
+				<label >{{restaurent.description}}</label>
+				<a class="btn btn-outline-success" href="{{ restaurent.get_absolute_url    }}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>{{restaurent.location}}</strong></h4>
+
+			</div>
+		</a>
+		
+		</div>
+		{%  endfor   %}
+
+	</div>
+
+{% endblock content %}

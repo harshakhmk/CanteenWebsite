@@ -1,0 +1,16 @@
+for item in object_list # for CB Views
+item.get_category_display
+item.get_label_display
+
+for handling CB Views we need either primary key or slug field
+Writing different views for different kinds of users with DRY principle
+
+decoupling of applications/models with tight coupling by use of signals in django
+
+reverse vs redirect
+
+Each time an order_product is added to cart a new item is created for the same user
+also same item when already added to cart is being created when add to cart is enabled
+solved the above issue
+
+Not able to import User model due to circulr import 

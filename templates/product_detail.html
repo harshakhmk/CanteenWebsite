@@ -1,0 +1,9 @@
+{% extends 'main.html'  %}
+{%  block content % }
+<h2>All details for product </h2>
+
+{{obj.name}}
+<a href="{{obj.get_absolute_url}}"></a>
+
+
+{%  endblock  %}

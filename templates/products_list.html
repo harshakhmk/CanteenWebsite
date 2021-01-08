@@ -1,0 +1,54 @@
+{%  extends 'main.html'    %}
+{% load static %}
+
+<style>
+#createproduct{
+  display: inline;
+  text-align: center;
+}
+.Top{
+  display: inline;
+  flex-direction: row;
+  top: auto;
+}
+</style>
+
+{%  if request.user.is_vendor or request.user.is_superuser %}
+<div class="Top">
+<a id="createproduct" href="{% url  'create_product' request.user.restaurent.id    %}"><span class="glyphicon glyphicon-plus float-right ml-2 pr-2"></span>Create Product</a>
+<a href="{%  url 'Update_Restaurent'  request.user.restaurent.id  %} ">  <button>Update Restaurent</button></a>
+ <a href="{%  url 'Delete_Restaurent'  request.user.restaurent.id  %}"> <button>Delete Restaurent </button></a>
+</div>
+ {% endif   %}
+
+{% block content %}
+
+{%  for product in products   %}
+  <div class="row">
+        <div class="column" >
+          <h2>{{product.name}} 1</h2>
+          <p class="danger">{{product.description}}</p>
+        </div>
+        <div class="container ">
+               {%  if request.user.is_customer or request.user.is_superuser  %}
+                <a href="{{product.get_add_to_cart_url}}"><span class="glyphicon glyphicon-plus "></span></a>
+                 <a href="{{product.get_remove_singleitem_from_cart_url}}"><span class="glyphicon glyphicon-minus "></span></a>
+                  <a href="{{product.get_remove_from_cart_url}}"><span class="glyphicon glyphicon-trash "></span></a>
+                {% if request.user.is_vendor or request.user.is_superuser  %}
+                <a href="{% url  'update_product' restaurent_id=product.restaurent_id.id  product_id=product.id   %}"><span class="glyphicon glyphicon-cog float-right ml-2 pr-2"></span>Update Product</a>
+                <a href="{% url  'delete_product' restaurent_id=product.restaurent_id.id  product_id=product.id   %}"><span class="glyphicon glyphicon-trash float-right ml-2 pr-2"></span>Delete Product</a>
+                {%   endif  %}
+                
+        </div> 
+      
+      
+        
+        
+  </div>
+      
+
+{%  endif    %}
+{%  endfor    %}
+
+
+{% endblock %}

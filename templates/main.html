@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<title>Ecom</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+ 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <style>
+.search-container{
+  margin: auto;
+  width: 60%;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.btn-group button {
+    background-color: #4CAF50; /* Green background */
+    border: 1px solid green; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+  }
+  
+  /* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #3e8e41;
+  }
+  </style>
+
+  
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">Profile </a>
+    
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	 
+	    </ul>
+	    <div class="form-inline my-2 my-lg-0">
+        {%  if not request.user.is_authenticated  %}
+        
+        <a href="{% url 'login' %}"><span   class="btn btn-danger float-right ml-2 pr-2 ">Login  </span></a>
+         <a href="{% url 'Signup' %}"><span   class="btn btn-danger float-right ml-2 pr-2 ">Signup  </span></a>
+         <p id="cart-total">0</p>
+         {%  else  %}
+         {% if request.user.is_customer   %}
+         <a href="{% url 'logout'  %}" class="btn btn-warning float-right ml-2 mr-2 pr-2 pl-2">Logout</a>
+	     	<a href="{% url 'order-summary' %}">
+          <img  id="cart-icon" src="{% static 'images/cart.png' %}"> </a>
+
+          <!--  View for Vendor -->
+           {% else  %}
+           <div class="btn-group">
+          
+
+            {% block buttons %}
+
+
+           
+           {%   endblock buttons    %}
+
+
+           
+
+          </div>
+        
+           
+
+           {% endif %}
+
+
+        {% endif %}
+        
+	    </div>
+	  </div>
+  </nav>
+  {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+  {% endfor %}
+  <script>
+    var closebtns = document.getElementsByClassName("close");
+    var i;
+    
+    for (i = 0; i < closebtns.length; i++) {
+      closebtns[i].addEventListener("click", function() {
+        this.parentElement.style.display = 'none';
+      });
+    }
+    </script>
+    
+  <div class="search-container">
+  <form  action="{% url 'search'  %}" class="form-inline my-2 my-lg-0 " method="GET">
+    <input class="form-control mr-sm-2" type="text" name="search" placeholder="search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+
+
+     <div class="container">
+            <br>
+            {% block content %}
+
+
+              {% endblock content %}
+         </div>
+       
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'main.html'  %}
+
+{%  block content % }
+Find search result here 
+<br>
+{% for result in query_set %}
+    <a href="{{result.get_absolute_url}}">Here</a> 
+    {{result.name}}
+    {{result.price}}
+{% empty %}
+ <h2>no results</h2> 
+{% endfor %}
+
+{%  endblock  %}
